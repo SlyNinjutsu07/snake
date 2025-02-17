@@ -1,2 +1,14 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using snake;
+using System;
+using static System.Console;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Game g = new Game(10,20);
+
+
+        ReadKey();
+    }
+}
