@@ -8,6 +8,7 @@ public class Program
     {
         Game g = new Game(10,20);
 
+        g.PrintMap();
 
         ReadKey();
     }

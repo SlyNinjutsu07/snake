@@ -11,17 +11,32 @@ namespace snake
     internal class Game
     {
         public List<string> snake;
+        private string snakeChar = "█";
+        private int snakeX, snakeY;
+        private int dX, dY;
+
+        private string apple = "o";
+
         string[,] map;// = new string[10,20]; //row, col
 
         public Game(int l, int w)
         {
+            //Set length and width size
             Length = l;
             Width = w;
+
+            //Snake starting position
+            snakeX = w / 2;//width is the # of cols
+            snakeY = l / 2;//length is the # of rows
+            //Switch between 1 and 0 and -1
+            dX = 0;//x velocity
+            dY = 0;//y velocity
 
             map = new string[Length,Width];
 
             snake = ["█"];
 
+            //Setting up the map
             for(int row = 0; row < map.GetLength(0); row++)
             {
                 for(int col = 0; col < map.GetLength(1); col++)
@@ -32,25 +47,27 @@ namespace snake
                 }
             }
 
-            
-            PrintMap();
         }
 
-        void PrintMap()
+        public void PrintMap()
         {
-            for(int col = 0; col < map.GetLength(0); col++)
+            map[snakeY, snakeX] = snake[0]; //y, x = l, w
+            for (int col = 0; col < map.GetLength(0); col++)
             {
-                for(int row = 0; row < map.GetLength(1); row++) Write(map[col, row]);
+                for (int row = 0; row < map.GetLength(1); row++) Write(map[col, row]);
                 WriteLine();
             }
         }
-
-        void Grow()
+        
+        public void ReadInput()
         {
-            snake.Add("█");
+            switch (Console.ReadKey())
+            {
+
+            }
         }
 
-        int Length { get; set; }
-        int Width {  get; set; }
+        public int Length { get; set; }
+        public int Width {  get; set; }
     }
 }
