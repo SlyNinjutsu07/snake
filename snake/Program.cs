@@ -2,14 +2,17 @@
 using System;
 using static System.Console;
 
-public class Program
+namespace snake
 {
-    public static void Main(string[] args)
+
+    public class Program
     {
-        Game g = new Game(10,20);
+        public static void Main(string[] args)
+        {
+            Game g = new Game(75,25);
+            g.DrawMap();
 
-        g.PrintMap();
-
-        ReadKey();
+            ReadKey();
+        }
     }
 }

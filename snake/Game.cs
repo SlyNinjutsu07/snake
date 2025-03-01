@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,64 +10,48 @@ namespace snake
 {
     internal class Game
     {
-        public List<string> snake;
-        private string snakeChar = "█";
-        private int snakeX, snakeY;
-        private int dX, dY;
+        public List<Position> snake = new List<Position>();
+        private string snakeChar = "0";
 
-        private string apple = "o";
+        private string berry = "+";
 
-        string[,] map;// = new string[10,20]; //row, col
+        private string[,] map;
 
-        public Game(int l, int w)
+        public Game(int cols, int rows)
         {
-            //Set length and width size
-            Length = l;
-            Width = w;
-
-            //Snake starting position
-            snakeX = w / 2;//width is the # of cols
-            snakeY = l / 2;//length is the # of rows
-            //Switch between 1 and 0 and -1
-            dX = 0;//x velocity
-            dY = 0;//y velocity
-
-            map = new string[Length,Width];
-
-            snake = ["█"];
+            map = new string[rows, cols];
+            snake.Add(new Position(cols / 2, rows / 2));//Trying to set the snake's starting position to the middle
 
             //Setting up the map
-            for(int row = 0; row < map.GetLength(0); row++)
+            for (int row = 0; row < map.GetLength(0); row++)
             {
-                for(int col = 0; col < map.GetLength(1); col++)
+                for (int col = 0; col < map.GetLength(1); col++)
                 {
-                    if ((col > 0 && col < map.GetLength(1) - 1) && 
+                    if ((col > 0 && col < map.GetLength(1) - 1) &&
                         (row > 0 && row < map.GetLength(0) - 1)) map[row, col] = " ";
                     else map[row, col] = "#";
                 }
             }
-
         }
 
-        public void PrintMap()
+        public void DrawMap()
         {
-            map[snakeY, snakeX] = snake[0]; //y, x = l, w
-            for (int col = 0; col < map.GetLength(0); col++)
+            Console.Clear();
+            for (int i = 0; i < map.GetLength(0); i++)
             {
-                for (int row = 0; row < map.GetLength(1); row++) Write(map[col, row]);
-                WriteLine();
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    //Add an if statement checking if the position currently holds a position from the snake
+                }
+                Console.WriteLine();
             }
         }
+
+        void AddBody()
+        {
+            
+        }
+
         
-        public void ReadInput()
-        {
-            switch (Console.ReadKey())
-            {
-
-            }
-        }
-
-        public int Length { get; set; }
-        public int Width {  get; set; }
     }
 }
