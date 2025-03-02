@@ -8,13 +8,38 @@ namespace snake
 {
     internal class Position
     {
+        private int currX;
+        private int currY;
+
+        private int pastX;
+        private int pastY;
+
         public Position(int cols, int rows)
         {
-            X = cols;
-            Y = rows;
+            currX = cols;
+            currY = rows;
         }
 
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X {
+            get { return currX; }
+            set
+            {
+                pastX = currX;
+                currX = value;
+            }
+        }
+
+        public int Y
+        {
+            get { return currY; }
+            set
+            {
+                pastY = currY;
+                currY = value;
+            }
+        }
+
+        public int getPastX() { return pastX; }
+        public int getPastY() { return pastY; }
     }
 }
