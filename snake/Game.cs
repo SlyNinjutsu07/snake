@@ -21,6 +21,7 @@ namespace snake
         {
             map = new string[rows, cols];
             snake.Add(new Position(cols / 2, rows / 2));//Trying to set the snake's starting position to the middle
+            snake.Add(new Position((cols / 2)-1, rows / 2));
 
             //Setting up the map
             for (int row = 0; row < map.GetLength(0); row++)
@@ -37,11 +38,15 @@ namespace snake
         public void DrawMap()
         {
             Console.Clear();
-            for (int i = 0; i < map.GetLength(0); i++)
+            for (int i = 0; i < map.GetLength(0); i++)//cycle through rows
             {
-                for (int j = 0; j < map.GetLength(1); j++)
+                for (int j = 0; j < map.GetLength(1); j++)//cycle through cols
                 {
-                    //Add an if statement checking if the position currently holds a position from the snake
+                    if(SnakeExists(j, i))
+                    {
+                        map[i, j] = snakeChar;
+                    }
+                    Write(map[i, j]);
                 }
                 Console.WriteLine();
             }
@@ -52,6 +57,14 @@ namespace snake
             
         }
 
+        bool SnakeExists(int cols, int rows) //cols rows
+        {
+            for(int i = 0; i < snake.Count; i++)
+            {
+                if (snake[i].X == cols && snake[i].Y == rows) return true;
+            }
+            return false;
+        }
         
     }
 }
