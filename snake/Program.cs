@@ -9,10 +9,16 @@ namespace snake
     {
         public static void Main(string[] args)
         {
-            Game g = new Game(75,25);
-            g.DrawMap();
+            Game g = new Game(75, 25);
 
-            ReadKey();
+            Console.CursorVisible = false;
+
+        repeat:
+            g.Input();
+            g.DrawMap();
+            Thread.Sleep(500);
+            goto repeat;
+
         }
     }
 }

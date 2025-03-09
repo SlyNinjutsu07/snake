@@ -12,13 +12,16 @@ namespace snake
     {
         public List<Position> snake = new List<Position>();
         private string snakeChar = "0";
-        private Position snakeMain;
+        private readonly Position snakeMain;
+        private int dX = 0, dY = 0;
 
         private string berry = "+";
         private int berryColX, berryRowY;
+        private bool berryExists = false;
 
         private string[,] map;
         private int mapCols, mapRows;
+        private string temp;
 
         public Game(int cols, int rows)
         {
@@ -43,32 +46,82 @@ namespace snake
 
         public void DrawMap()
         {
-            Console.Clear();
+            Clear();
 
-            do
+            if (snakeMain.X == berryColX && snakeMain.Y == berryRowY)
             {
-                RandomizeBerryPos();
-                map[berryRowY, berryColX] = berry;
-            } while (SnakeExists(berryColX, berryRowY));
+                AddBody();
+                berryExists = false;
+            }
 
+            SpawnBerry();
 
+            MoveSnake();
+            
             for (int i = 0; i < map.GetLength(0); i++)//cycle through rows
             {
                 for (int j = 0; j < map.GetLength(1); j++)//cycle through cols
                 {
-                    if(SnakeExists(j, i))
+                    Position initialSnake = snake[snake.Count - 1];
+                    if (SnakeExists(j, i))
                     {
+                        temp = map[i, j];
                         map[i, j] = snakeChar;
                     }
+                    else if (initialSnake.getPastX() == j && initialSnake.getPastY() == i) map[i, j] = temp;
                     Write(map[i, j]);
+
                 }
                 Console.WriteLine();
+            }
+            
+        }
+
+        public void Input()
+        {
+            if (KeyAvailable)
+            {
+                ConsoleKeyInfo key = ReadKey(true);
+                switch (key.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        dY = -1;
+                        dX = 0;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        dY = 1;
+                        dX = 0;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        dX = -1;
+                        dY = 0;
+                        break;
+                    case ConsoleKey.RightArrow:
+                        dX = 1;
+                        dY = 0;
+                        break;
+                    case ConsoleKey.Escape:
+                        Environment.Exit(0);
+                        break;
+                }
+            }
+        }
+
+        void MoveSnake()
+        {
+            snakeMain.X += dX;
+            snakeMain.Y += dY;
+            for (int i = 1; i < snake.Count; i++)
+            {
+                snake[i].X = snake[i - 1].getPastX();
+                snake[i].Y = snake[i - 1].getPastY();
             }
         }
 
         void AddBody()
         {
-            
+            int lastSnakePart = snake.Count - 1;
+            snake.Add(new Position(snake[lastSnakePart].X, snake[lastSnakePart].Y));
         }
 
         bool SnakeExists(int cols, int rows) //cols rows
@@ -87,6 +140,20 @@ namespace snake
 
             berryColX = randCol.Next(1, mapCols - 1);
             berryRowY = randRow.Next(1, mapRows - 1);
+        }
+
+        void SpawnBerry()
+        {
+            if (berryExists == false) 
+            {
+                do
+                {
+                    RandomizeBerryPos();
+                    map[berryRowY, berryColX] = berry;
+                } while (SnakeExists(berryColX, berryRowY));
+                berryExists = true;
+            }
+            
         }
         
     }
