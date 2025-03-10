@@ -16,7 +16,7 @@ namespace snake
         repeat:
             g.Input();
             g.DrawMap();
-            Thread.Sleep(500);
+            Thread.Sleep(100);
             goto repeat;
 
         }

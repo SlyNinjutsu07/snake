@@ -21,7 +21,6 @@ namespace snake
 
         private string[,] map;
         private int mapCols, mapRows;
-        private string temp;
 
         public Game(int cols, int rows)
         {
@@ -65,10 +64,9 @@ namespace snake
                     Position initialSnake = snake[snake.Count - 1];
                     if (SnakeExists(j, i))
                     {
-                        temp = map[i, j];
                         map[i, j] = snakeChar;
                     }
-                    else if (initialSnake.getPastX() == j && initialSnake.getPastY() == i) map[i, j] = temp;
+                    else if (initialSnake.getPastX() == j && initialSnake.getPastY() == i) map[i, j] = " ";
                     Write(map[i, j]);
 
                 }
