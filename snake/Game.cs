@@ -14,6 +14,7 @@ namespace snake
         private string snakeChar = "0";
         private readonly Position snakeMain;
         private int dX = 0, dY = 0;
+        private bool canChangeX = true, canChangeY = true;
 
         private string berry = "+";
         private int berryColX, berryRowY;
@@ -83,20 +84,40 @@ namespace snake
                 switch (key.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        dY = -1;
-                        dX = 0;
+                        if (canChangeY)
+                        {
+                            dY = -1;
+                            dX = 0;
+                            canChangeX = true;
+                            canChangeY = false;
+                        }
                         break;
                     case ConsoleKey.DownArrow:
-                        dY = 1;
-                        dX = 0;
+                        if (canChangeY)
+                        {
+                            dY = 1;
+                            dX = 0;
+                            canChangeX = true;
+                            canChangeY = false;
+                        }
                         break;
                     case ConsoleKey.LeftArrow:
-                        dX = -1;
-                        dY = 0;
+                        if (canChangeX)
+                        {
+                            dY = 0;
+                            dX = -1;
+                            canChangeX = false;
+                            canChangeY = true;
+                        }
                         break;
                     case ConsoleKey.RightArrow:
-                        dX = 1;
-                        dY = 0;
+                        if (canChangeX)
+                        {
+                            dY = 0;
+                            dX = 1;
+                            canChangeX = false;
+                            canChangeY = true;
+                        }
                         break;
                     case ConsoleKey.Escape:
                         Environment.Exit(0);

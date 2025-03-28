@@ -9,7 +9,7 @@ namespace snake
     {
         public static void Main(string[] args)
         {
-            Game g = new Game(75, 25);
+            Game g = new Game(20, 20);
 
             Console.CursorVisible = false;
 
