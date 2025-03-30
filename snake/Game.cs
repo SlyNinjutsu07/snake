@@ -128,12 +128,16 @@ namespace snake
 
         void MoveSnake()
         {
-            snakeMain.X += dX;
-            snakeMain.Y += dY;
-            for (int i = 1; i < snake.Count; i++)
+            if (map[snakeMain.X + dX, snakeMain.Y + dY] == "#") { DisplayGameOver(); }
+            else
             {
-                snake[i].X = snake[i - 1].getPastX();
-                snake[i].Y = snake[i - 1].getPastY();
+                snakeMain.X += dX;
+                snakeMain.Y += dY;
+                for (int i = 1; i < snake.Count; i++)
+                {
+                    snake[i].X = snake[i - 1].getPastX();
+                    snake[i].Y = snake[i - 1].getPastY();
+                }
             }
         }
 
@@ -173,6 +177,21 @@ namespace snake
                 berryExists = true;
             }
             
+        }
+
+        public void DisplayGameOver()
+        {
+            string message = @"
+░██████╗░░█████╗░███╗░░░███╗███████╗  ░█████╗░██╗░░░██╗███████╗██████╗░
+██╔════╝░██╔══██╗████╗░████║██╔════╝  ██╔══██╗██║░░░██║██╔════╝██╔══██╗
+██║░░██╗░███████║██╔████╔██║█████╗░░  ██║░░██║╚██╗░██╔╝█████╗░░██████╔╝
+██║░░╚██╗██╔══██║██║╚██╔╝██║██╔══╝░░  ██║░░██║░╚████╔╝░██╔══╝░░██╔══██╗
+╚██████╔╝██║░░██║██║░╚═╝░██║███████╗  ╚█████╔╝░░╚██╔╝░░███████╗██║░░██║
+░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝  ░╚════╝░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝";
+            WriteLine(message + "\n\n");
+            Write("Press any key to quit");
+            ReadKey();
+            Environment.Exit(0);
         }
         
     }
