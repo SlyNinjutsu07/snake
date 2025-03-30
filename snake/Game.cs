@@ -23,8 +23,13 @@ namespace snake
         private string[,] map;
         private int mapCols, mapRows;
 
+        private int score;
+        public int updateSpeed = 100;
+
         public Game(int cols, int rows)
         {
+            score = 0;
+
             mapCols = cols;
             mapRows = rows;
             map = new string[rows, cols];
@@ -50,6 +55,7 @@ namespace snake
 
             if (snakeMain.X == berryColX && snakeMain.Y == berryRowY)
             {
+                score++;
                 AddBody();
                 berryExists = false;
             }
@@ -73,6 +79,8 @@ namespace snake
                 }
                 Console.WriteLine();
             }
+
+            Write("\n\nScore: " + score);
             
         }
 
@@ -188,8 +196,8 @@ namespace snake
 ██║░░╚██╗██╔══██║██║╚██╔╝██║██╔══╝░░  ██║░░██║░╚████╔╝░██╔══╝░░██╔══██╗
 ╚██████╔╝██║░░██║██║░╚═╝░██║███████╗  ╚█████╔╝░░╚██╔╝░░███████╗██║░░██║
 ░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝  ░╚════╝░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝";
-            WriteLine(message + "\n\n");
-            Write("Press any key to quit");
+            WriteLine(message + "\n\nYour score: " + score);
+            Write("\n\nPress any key to quit");
             ReadKey();
             Environment.Exit(0);
         }
